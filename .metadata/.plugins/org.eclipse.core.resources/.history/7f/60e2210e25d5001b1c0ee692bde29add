@@ -1,0 +1,91 @@
+package br.com.monkey.bo;
+
+import java.util.Arrays;
+
+public class MainTest
+{
+	//static final int MAX = 100;
+    
+    static int getAmountBananas(int mat[][],
+                              int m, int n)
+    {
+        
+    	//Limite total de colunas
+        int limitColumns = n-1;
+        int limitRows = m-1;
+        
+        //Matriz auxiliar para soma dos resultados
+        int matAux[][] = new int[m][n];
+        
+        //Preenche todas as posições com Zero para depois vir 
+        //somando os valores da matriz e colocar em cada 
+        //posição da matriz
+        for(int i=0; i < matAux.length; i++) {
+        	for( int j=0; j < matAux[0].length; j++ ) {
+        		matAux[i][j] = 0;
+        	}
+        }
+        int totalVezes = 1;
+        //Fiz uma iteração reversa para preencher da ultima coluna para a primeira
+        for (int col = n-1; col >= 0; col--)
+        {
+            for (int row = 0; row < m; row++)
+            {
+            	System.out.println("Passei por aqui " + totalVezes + " vezes.");
+            	totalVezes++;
+            	//System.out.println(">>>>>>>>>>>>>>>>> BEGIN <<<<<<<<<<<<<<<<<");
+            	int next 	 = 0;
+                int nextDown = 0;
+                int nextUp   = 0;
+                
+                if( col != limitColumns ) {
+                	next = matAux[row][col+1];
+                }
+                
+                if( row != limitRows && col != limitColumns) {
+                	nextDown = matAux[row+1][col+1];
+                }
+                
+                if( row != 0 && col != limitColumns) {
+                	nextUp = matAux[row-1][col+1];
+                }
+                
+                /*System.out.println("Linha: "+row+" | Coluna: "+col);
+                System.out.println("nextDown: "+nextDown);
+                System.out.println("nextUp: "+nextUp);
+                System.out.println("next: "+next);*/
+                
+                // Nessa operação será comparado o maior valor de cada uma das operações acima 
+                int result1 = Math.max( next, nextDown);
+                int resultFinal = Math.max( result1, nextUp);
+                
+                matAux[row][col] = mat[row][col] + resultFinal;
+            }
+        }
+        
+        //Faz um print da versão final da matriz já com a somas de cada caminho
+        IslandBO.showMatrix(matAux);
+        
+        int resposta = 0;
+        for (int i = 0; i <= limitRows-1; i++) {
+            resposta = Math.max(resposta, matAux[i][0]);
+        }
+        
+        return resposta;
+    }
+     
+    //driver code
+    public static void main(String arg[])
+    {
+        int mat[][]= { { 10, 33, 13, 15 },
+        			   { 22, 21, 04, 01 },
+        			   { 05, 00, 02, 03 },
+        			   { 00, 06, 14, 02 }};
+        
+        int m = mat.length; 
+        int n = mat[0].length;
+        
+        System.out.print("O total maximo de bananas é de: " + getAmountBananas(mat, m, n));
+    }
+
+}

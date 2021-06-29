@@ -1,0 +1,31 @@
+package br.com.monkey.bo;
+
+public class IslandBO {
+	public static void showMatrix(int array[][]) {
+		System.out.println("array 1:"+array.length);
+		System.out.println("array 2:"+array[0].length);
+		
+		for (int i = 0; i < array.length; i++) {
+        	System.out.print("[");
+        	for (int j = 0; j < array[0].length; j++) {
+                System.out.print(" " + array[i][j]);
+            }
+        	System.out.println(" ]");        	
+        }
+	}
+	
+	public static int getPosition(int array[][], int row, int col) {
+		Object matrix = array;
+		return ((int[][])matrix)[row][col];
+	}
+	public static int upRow(int currentRow, int currentCol) {
+		int row = currentRow-1;
+		if( row < 0 ) row = 0;
+		
+		return row;
+	}
+	
+	public static int nextCol(int array[][], int col){
+		int col = currentCol+1;
+	}
+}

@@ -1,0 +1,37 @@
+package br.com.monkey.bo;
+
+import java.util.Stack;
+
+public class IlhaBO {
+
+	public static void findPaths(int[][] mat, Stack<Integer> path, int i, int j) {
+		int linhas = mat.length;
+		int colunas = mat[0].length;
+
+		// if the last cell is reached, print the route
+		if (i == linhas - 1 && j == colunas - 1) {
+			path.add(mat[i][j]);
+			System.out.println(path);
+			path.pop();
+
+			return;
+		}
+
+		// include the current cell in the path
+		path.add(mat[i][j]);
+
+		// move right
+		if ((i >= 0 && i < linhas && j + 1 >= 0 && j + 1 < colunas)) {
+			findPaths(mat, path, i, j + 1);
+		}
+
+		// move down
+		if ((i + 1 >= 0 && i + 1 < linhas && j >= 0 && j < colunas)) {
+			findPaths(mat, path, i + 1, j);
+		}
+
+		// backtrack: remove the current cell from the path
+		path.pop();
+	}
+
+}

@@ -1,0 +1,32 @@
+package br.com.monkey.bo;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+public class IslandBO {
+	
+	
+	IslandBO
+	
+	public static void showMatrix(int array[][]) {
+		System.out.println("Linhas: "+ array.length);
+		System.out.println("Colunas: "+ array[0].length);
+		
+		for (int i = 0; i < array.length; i++) {
+        	System.out.print("Matriz Soma atraves dos caminhos[");
+        	for (int j = 0; j < array[0].length; j++) {
+                System.out.print(" " + array[i][j]);
+            }
+        	System.out.println(" ]");        	
+        }
+	}
+	
+	public static int next(int mat[][], int row, int col) {
+		//Limite total de colunas
+        int limitColumns = mat[0].length-1;
+        int limitRows = mat.length-1;
+        
+        
+	}
+}

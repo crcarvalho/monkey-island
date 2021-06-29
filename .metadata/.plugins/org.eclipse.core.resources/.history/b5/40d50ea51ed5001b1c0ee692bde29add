@@ -1,0 +1,92 @@
+package br.com.monkey.bo;
+
+import java.util.Arrays;
+
+public class MainTest
+{
+	//static final int MAX = 100;
+    
+    static int getAmountBananas(int mat[][],
+                              int m, int n)
+    {
+         
+        int matAux[][] = new int[m][n];
+        
+        //Preenche todas as posições com Zero para depois vir 
+        //somando os valores da matriz e colocar em cada 
+        //posição da matriz
+        for(int i=0; i < matAux.length; i++) {
+        	for( int j=0; j < matAux[0].length; j++ ) {
+        		mat[i][j] = 0;
+        	}
+        }
+            //Arrays.fill(rows, 0);
+        
+        
+        //Fiz uma iteração reversa para preencher da ultima coluna para a primeira
+        for (int col = n-1; col >= 0; col--)
+        {
+            for (int row = 0; row < m; row++)
+            {
+            	int next 	 = 0;
+                int nextDown = 0;
+                int nextUp   = 0;
+                
+                int limitColumns = n-1;
+                int limitRows = m-1;
+                
+                if( col != limitColumns ) {
+                	next = matAux[row][col+1];
+                }
+                
+                if( row != limitRows && col != limitColumns) {
+                	nextDown = matAux[row+1][col+1];
+                }
+                
+                if( row != 0 && col != limitColumns) {
+                	nextUp = matAux[row-1][col+1];
+                }
+                
+                System.out.println(">>>>>>>>>>>>>>>>> BEGIN <<<<<<<<<<<<<<<<<");
+                
+                System.out.println("Linha: "+row+" | Coluna: "+col);
+                System.out.println("nextDown: "+nextDown);
+                System.out.println("nextUp: "+nextUp);
+                System.out.println("next: "+next);
+                
+                System.out.println(">>>>>>>>>>>>>>>>> END <<<<<<<<<<<<<<<<<");
+                
+                // Nessa operação será comparado o maior valor de cada uma das operações acima 
+                int result1 = Math.max( next, nextDown);
+                int result2 = Math.max( result1, nextUp);
+                
+                //O valor da posição posterior será somado à posição atual
+                matAux[row][col] = mat[row][col] + result2;
+            }
+        }
+     
+        // Atribui o ultimo valor na 
+        int res = matAux[0][0];
+        
+        //Nesse loop será verificado qual é o maior valor partindo da primeira coluna da matriz
+        for (int i = 1; i < m; i++)
+            res = Math.max(res, matAux[i][0]);
+             
+        return res;
+    }
+     
+    //driver code
+    public static void main(String arg[])
+    {
+        int mat[][]= { {22, 25, 13, 15},
+                        {15, 21, 4, 1},
+                        {5, 0, 2, 3},
+                        {23, 6, 14, 2} };
+               
+        int m = mat.length; 
+        int n = mat[0].length;
+         
+        System.out.print(getAmountBananas(mat, m, n));
+    }
+
+}

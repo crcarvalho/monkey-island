@@ -1,0 +1,81 @@
+package br.com.monkey.bo;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+
+public class IslandBO {
+	public static void showMatrix(int array[][]) {
+		System.out.println("Linhas: "+ array.length);
+		System.out.println("Colunas: "+ array[0].length);
+		
+		for (int i = 0; i < array.length; i++) {
+        	System.out.print("[");
+        	for (int j = 0; j < array[0].length; j++) {
+                System.out.print(" " + array[i][j]);
+            }
+        	System.out.println(" ]");        	
+        }
+	}
+	
+	Set< String > posicoesUsadas = new HashSet<>();
+	private static HashMap< String, Integer > mapPosicoesValores = new HashMap<String, Integer>();
+	
+	public static void getMaxBananas(int array[][]) {
+		for (int i = 0; i < array.length; i++) {
+			String posicoes = "";
+			
+			int j = 0;
+			
+			while(j < array[0].length ) {
+				String posicao = String.valueOf(i)+String.valueOf(j);
+				posicoes += posicao;
+				
+				mapPosicoesValores.put(posicao , getPosition(array,i,j));
+			}
+			
+			
+			/*for (int j = 0; j < array[0].length; j++) {
+				
+				if( notInMap(posicoes)) {
+					sif(i == 0) {
+						j = nextCol(array, j);
+						
+					}else if(i > array.length) {
+						
+					}
+				}
+            }*/
+        }
+	}
+	
+	private static boolean notInMap(String posicoes) {
+		return !mapPosicoesValores.containsKey(posicoes);
+	}
+	
+	public static int getPosition(int array[][], int row, int col) {
+		Object matrix = array;
+		return ((int[][])matrix)[row][col];
+	}
+	
+	public static int upRow(int lRow) {
+		int row = lRow-1;
+		if( row < 0 ) row = 0;
+		
+		return row;
+	}
+	
+	public static int downRow(int array[][],int lCol) {
+		int row = lCol+1;
+		if( row > array.length ) row = array.length;
+		
+		return row;
+	}
+	
+	
+	public static int next(int array[][], int lCol){
+		int col = lCol+1;
+		if( col > array[0].length ) col = array[0].length; 
+		return col;
+	}
+}
